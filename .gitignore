@@ -1,0 +1,23 @@
+# Build output and bytecode
+target/
+build/
+*.class
+
+# IDE and Editor files
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# System & temporary files
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Server run artifacts
+run/
+cache/
+logs/

@@ -1,0 +1,19 @@
+name: SharedLife
+version: '1.1.0'
+main: com.sharedlife.paper.SharedLifePlugin
+api-version: '1.21'
+author: Antigravity
+description: Hardcore shared health, hunger, and effects with smart lava anti-multiplication and auto world reset.
+commands:
+  ping:
+    description: Check your ping or another player's latency.
+    usage: /ping [player]
+  sharedlife:
+    description: Manage SharedLife hardcore settings and run status.
+    aliases: [sh, sharedhardcore]
+    usage: /sharedlife [status|reset|sync|reload]
+permissions:
+  sharedlife.admin:
+    description: Allows administrative commands for SharedLife
+    default: op
+

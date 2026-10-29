@@ -1,0 +1,103 @@
+# ==============================================================================
+# SharedLife Hardcore Configuration
+# ==============================================================================
+
+health:
+  # Maximum team health (20.0 = 10 hearts)
+  max-health: 20.0
+  # Plays hurt sound and red screen shake for teammates when damage is taken
+  physical-feedback: true
+
+damage:
+  # Friendly fire between teammates (true = teammates can hit and hurt each other)
+  friendly-fire: true
+
+  # Team invulnerability ticks granted to all players after taking damage (default 10 ticks = 0.5s, matching vanilla)
+  team-invulnerability-ticks: 10
+
+  # Window in milliseconds for simultaneous multi-player damage (e.g. creepers, explosions, mob swarms).
+  # If multiple players take damage within this window, the team only suffers the highest single hit,
+  # preventing damage from multiplying exponentially per player!
+  aoe-anti-amplify-ms: 300
+
+  # Periodic Hazard Damage Settings (Lava, Fire, Drowning, etc.)
+  # Calibrated to vanilla tick speeds (500ms for lava, 1000ms for fire)
+  # while strictly preventing multiplication when multiple players are in the hazard!
+  lava:
+    damage-amount: 3.0
+    cooldown-ms: 450
+
+  fire:
+    damage-amount: 1.0
+    cooldown-ms: 900
+
+  drowning:
+    damage-amount: 2.0
+    cooldown-ms: 900
+
+  hot-floor:
+    damage-amount: 1.0
+    cooldown-ms: 900
+
+  poison:
+    damage-amount: 1.0
+    cooldown-ms: 1100
+
+  wither:
+    damage-amount: 1.0
+    cooldown-ms: 900
+
+  freeze:
+    damage-amount: 1.0
+    cooldown-ms: 900
+
+  starvation:
+    damage-amount: 1.0
+    cooldown-ms: 1800
+
+  suffocation:
+    damage-amount: 1.0
+    cooldown-ms: 900
+
+  contact:
+    damage-amount: 1.0
+    cooldown-ms: 450
+
+hunger:
+  # Exhaustion scaling per additional online player.
+  # Formula: team_exhaustion = raw_exhaustion * (1.0 + (players - 1) * rate-per-extra-player) / players
+  rate-per-extra-player: 0.15
+
+effects:
+  # Synchronize potion and status effects across all players
+  share-potions: true
+
+hud:
+  # Show top BossBar with live stats and individual player ping (false = disabled)
+  show-top-bar: false
+  # Show player ping next to name in tab list
+  show-ping-tab: true
+  # Show on-screen notification to every player showing who took damage
+  show-damage-on-screen: true
+  # Optionally broadcast who took damage in game chat (false by default)
+  show-damage-in-chat: false
+
+world-reset:
+  lobby-world: "sharedlife_lobby"
+  platform-y: 240
+  platform-radius: 4
+  platform-wait-seconds: 5
+  unload-old-worlds: true
+
+logging:
+  # Print damage events to the server console showing player, cause, and HP
+  log-damage: true
+  # Print throttled periodic damage events to console (false to prevent log flooding)
+  log-throttled-damage: false
+
+state:
+  shared-health: 20.0
+  shared-food: 20
+  shared-saturation: 5.0
+  shared-exhaustion: 0.0
+  run-world: ""
