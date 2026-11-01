@@ -54,10 +54,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to GitHub Packages
+        continue-on-error: true
         run: |
           mvn deploy:deploy-file \
             -Dfile=SharedHealthHunger-2.0.0.jar \
-            -DgroupId=me.shared \
+            -DgroupId=com.github.shuvadeepbiswas731-source \
             -DartifactId=SharedHealthHunger \
             -Dversion=2.0.0 \
             -Dpackaging=jar \
