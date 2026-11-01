@@ -7,7 +7,6 @@ import org.bukkit.Difficulty;
 import org.bukkit.EntityEffect;
 import org.bukkit.GameMode;
 import org.bukkit.GameRule;
-import org.bukkit.GameRules;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -107,6 +106,22 @@ public class SharedHealthHunger extends JavaPlugin implements Listener {
     private File dataFile;
     private int countdownSeconds = 5;
     private BossBar activeLoadingBar;
+
+    private void playTotemEffect(Player player) {
+        try {
+            player.playEffect(EntityEffect.valueOf("PROTECTED_FROM_DEATH"));
+        } catch (Throwable t) {
+            player.playEffect(EntityEffect.TOTEM_RESURRECT);
+        }
+    }
+
+    private void playHitEffect(Player player) {
+        try {
+            player.playEffect(EntityEffect.valueOf("HIT"));
+        } catch (Throwable t) {
+            player.playEffect(EntityEffect.HURT);
+        }
+    }
 
     static class DamageRecord {
         double totalDamage;
@@ -344,7 +359,7 @@ public class SharedHealthHunger extends JavaPlugin implements Listener {
                     w.setHardcore(true);
                 } catch (Throwable ignored) {
                 }
-                w.setGameRule(GameRules.NATURAL_HEALTH_REGENERATION, true);
+                w.setGameRule(GameRule.NATURAL_REGENERATION, true);
             }
         }
     }
@@ -417,8 +432,8 @@ public class SharedHealthHunger extends JavaPlugin implements Listener {
         World lobby = getLobby();
         if (lobby != null) {
             lobby.setTime(18000L);
-            lobby.setGameRule(GameRules.ADVANCE_TIME, false);
-            lobby.setGameRule(GameRules.ADVANCE_WEATHER, false);
+            lobby.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+            lobby.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
 
             for (int x = -25; x <= 25; x++) {
                 for (int z = -25; z <= 25; z++) {
@@ -840,7 +855,7 @@ public class SharedHealthHunger extends JavaPlugin implements Listener {
                 Bukkit.broadcast(Component.text("§6✦ " + player.getName() + " used a Totem of Undying!"));
 
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    p.playEffect(EntityEffect.PROTECTED_FROM_DEATH);
+                    playTotemEffect(p);
                     p.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 900, 1));
                     p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 800, 0));
                     p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 100, 1));
@@ -865,12 +880,12 @@ public class SharedHealthHunger extends JavaPlugin implements Listener {
 
         // Non-fatal damage branch
         event.setDamage(0.0);
-        player.playEffect(EntityEffect.HIT);
+        playHitEffect(player);
 
         // Feedback for teammates: subtle hit flinch & hurt sound so team is aware in real time
         for (Player teammate : Bukkit.getOnlinePlayers()) {
             if (teammate != player && isGameWorld(teammate.getWorld())) {
-                teammate.playEffect(EntityEffect.HIT);
+                playHitEffect(teammate);
                 teammate.playSound(teammate.getLocation(), Sound.ENTITY_PLAYER_HURT, 0.4f, 1.2f);
             }
         }

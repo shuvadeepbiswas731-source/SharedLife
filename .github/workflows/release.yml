@@ -25,17 +25,12 @@ jobs:
           server-id: github
           settings-path: ${{ github.workspace }}
 
-      - name: Build with Maven
-        run: mvn clean package -B
-
       - name: Publish to GitHub Releases
         uses: softprops/action-gh-release@v2
         with:
           name: SharedHealthHunger v2.0.0
           tag_name: ${{ github.ref_name }}
-          files: |
-            SharedHealthHunger-2.0.0.jar
-            target/SharedHealthHunger-2.0.0.jar
+          files: SharedHealthHunger-2.0.0.jar
           generate_release_notes: false
           body: |
             ## 🩸 SharedHealthHunger v2.0.0
@@ -58,7 +53,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish to GitHub Packages
-        run: mvn deploy -s ${{ github.workspace }}/settings.xml -DskipTests
+      - name: Deploy to GitHub Packages
+        run: |
+          mvn deploy:deploy-file \
+            -Dfile=SharedHealthHunger-2.0.0.jar \
+            -DgroupId=me.shared \
+            -DartifactId=SharedHealthHunger \
+            -Dversion=2.0.0 \
+            -Dpackaging=jar \
+            -DpomFile=pom.xml \
+            -DrepositoryId=github \
+            -Durl=https://maven.pkg.github.com/shuvadeepbiswas731-source/SharedLife \
+            -s ${{ github.workspace }}/settings.xml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
