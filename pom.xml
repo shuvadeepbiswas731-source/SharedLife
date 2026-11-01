@@ -33,6 +33,14 @@
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/shuvadeepbiswas731-source/SharedLife</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <resources>
             <resource>

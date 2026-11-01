@@ -1,0 +1,64 @@
+name: Release & Publish Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-release-package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          server-id: github
+          settings-path: ${{ github.workspace }}
+
+      - name: Build with Maven
+        run: mvn clean package -B
+
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          name: SharedHealthHunger v2.0.0
+          tag_name: ${{ github.ref_name }}
+          files: |
+            SharedHealthHunger-2.0.0.jar
+            target/SharedHealthHunger-2.0.0.jar
+          generate_release_notes: false
+          body: |
+            ## 🩸 SharedHealthHunger v2.0.0
+
+            Automated hardcore multiplayer system for **Paper 1.21+ & 26.3** (Java 21, 25, 26).
+
+            ### 📦 Direct Download
+            Click below to download the ready-to-run JAR:
+            * **[SharedHealthHunger-2.0.0.jar](https://github.com/shuvadeepbiswas731-source/SharedLife/releases/download/${{ github.ref_name }}/SharedHealthHunger-2.0.0.jar)**
+
+            ---
+
+            ### 🌟 Key Changes & Fixes
+            * **Paper 26.3 Dimension Support**: Fully compatible with modern Minecraft 26.3 world storage layouts (`world/dimensions/minecraft/`).
+            * **Environmental Hazard Anti-Multiplication**: Fixes team-wide lava, fire, and drowning damage stacking so the team does not take multiplied damage when multiple players are in the hazard.
+            * **Explosion & AoE Anti-Wipeout**: Simultaneous creeper or TNT explosion damage within 300ms is capped to the highest single blast hit.
+            * **Instant Totem Defense**: Popping a Totem of Undying restores shared health and grants 40 seconds of Fire Resistance to the team.
+            * **Fixed Spawn Immunity**: 5 seconds of protection activates the moment players teleport into the new world.
+            * **Fast 5s Automated Reset**: Removed Chunky pregen requirement and reduced world countdown from 30s down to 5s.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        run: mvn deploy -s ${{ github.workspace }}/settings.xml -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

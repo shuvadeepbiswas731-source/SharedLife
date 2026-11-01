@@ -1,6 +1,14 @@
 # 🩸 SharedHealthHunger
 
+[![GitHub Release](https://img.shields.io/github/v/release/shuvadeepbiswas731-source/SharedLife?style=for-the-badge&logo=github&label=Download%20Jar&color=brightgreen)](https://github.com/shuvadeepbiswas731-source/SharedLife/releases/latest)
+[![GitHub Packages](https://img.shields.io/badge/GitHub-Packages-blue?style=for-the-badge&logo=github)](https://github.com/shuvadeepbiswas731-source/SharedLife/packages)
+
 **SharedHealthHunger** is an automated, high-performance hardcore multiplayer plugin for modern Minecraft (**Paper / Purpur 1.21+ & 26.3**, Java 21+).
+
+### ⬇️ Easy Download
+* **Latest Release (.jar)**: [**Download SharedHealthHunger-2.0.0.jar**](https://github.com/shuvadeepbiswas731-source/SharedLife/releases/latest)
+* **Direct from Repository**: [**Download Raw JAR**](https://raw.githubusercontent.com/shuvadeepbiswas731-source/SharedLife/main/SharedHealthHunger-2.0.0.jar)
+* **GitHub Packages**: [**View Maven Package Registry**](https://github.com/shuvadeepbiswas731-source/SharedLife/packages)
 
 All players on the server share a **single collective life pool, hunger, absorption, and saturation**. If one takes damage, all feel it. If one starves, all starve. When the team dies, the hardcore run ends, and the server automatically constructs an enclosed sky lobby, resets the run, and prepares a fresh hardcore world.
 
