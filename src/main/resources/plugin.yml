@@ -1,19 +1,20 @@
-name: SharedLife
-version: '1.1.0'
-main: com.sharedlife.paper.SharedLifePlugin
+name: SharedHealthHunger
+version: '2.0.0'
+main: me.shared.SharedHealthHunger
 api-version: '1.21'
-author: Antigravity
-description: Hardcore shared health, hunger, and effects with smart lava anti-multiplication and auto world reset.
+description: Shared health, hunger, and automated hardcore run system for modern Minecraft.
+authors: [Shared]
 commands:
-  ping:
-    description: Check your ping or another player's latency.
-    usage: /ping [player]
-  sharedlife:
-    description: Manage SharedLife hardcore settings and run status.
-    aliases: [sh, sharedhardcore]
-    usage: /sharedlife [status|reset|sync|reload]
-permissions:
-  sharedlife.admin:
-    description: Allows administrative commands for SharedLife
-    default: op
+  resetrun:
+    description: Resets the shared health run.
+    permission: shared.admin
+    usage: /resetrun
+  setrun:
+    description: Sets the current run ID manually.
+    permission: shared.admin
+    usage: /setrun <id>
+  lobbysound:
+    description: Toggles the lobby ticking sound for yourself.
+    aliases: [mute]
+    usage: /lobbysound
 
